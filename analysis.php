@@ -47,21 +47,24 @@ function id($uid){
 
 function hindex($user_id){
 	global $db;
-	$index = 1;
-	$fans = 0;
-	while ($index != $fans){
+	$index = 0;
+	$fans = 1;
+
+	$sql = "SELECT count(fans_id) FROM fans WHERE user_id = {$user_id}";
+	$result = $db->query($sql, 'row');
+	$total = $result['count(fans_id)'];
+
+	while ($index != $fans && $fans >= $index){
 		$index++;
 		$sql = "SELECT count(user.user_id) FROM user,fans WHERE fans.user_id = {$user_id} AND user.user_id = fans.fan_user_id AND user.fans > {$index}";
 		$result = $db->query($sql, 'row');
 		$fans = $result['count(user.user_id)'];	
+		echo 'fans:'.$fans.'--index:'.$index.'<br />';
 	}
-
-	$sql = "SELECT count(fans_id) FROM fans WHERE user_id = {$user_id}";
-	$result = $db->query($sql, 'row');
 
 	$db->update('user', 
 		array('h_index' => $index, 
-			'has_index' => $result['count(fans_id)']
+			'has_index' => $total
 		), "user_id = {$user_id}");
 
 	echo 'H-index:'.$index;
