@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2013 年 04 月 15 日 06:10
+-- 生成日期: 2013 年 04 月 15 日 06:14
 -- 服务器版本: 5.5.16
 -- PHP 版本: 5.3.8
 
@@ -19,6 +19,19 @@ SET time_zone = "+00:00";
 --
 -- 数据库: `ibooker`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `fans`
+--
+
+CREATE TABLE IF NOT EXISTS `fans` (
+  `fans_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `fan_user_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`fans_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1849 ;
 
 -- --------------------------------------------------------
 
